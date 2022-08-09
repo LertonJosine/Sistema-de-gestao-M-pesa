@@ -7,6 +7,7 @@ public class Retirada {
 
     // construtor
     public Retirada(float valor, String justificativa){
+        justificativa = "Não definida";
         this.justificativa = justificativa;
         this.valor = valor;
     }
