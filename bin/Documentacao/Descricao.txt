@@ -1,0 +1,11 @@
+Desenvolver um sistema de gestáo capaz de:
+
+- Efectuar registros diarios do saldo, valor em especie e da comissão;
+- Visualizar as dividas e as entradas
+- Verificar se existe algum deficie de valores (se falta algum valor ou se tem algum valor a mais);
+- Gerar relatorio semanal e mensal
+
+Funcionalidades extra:
+- Fazer controle de faltas;
+- Calcular o crescimento do negocio.
+
