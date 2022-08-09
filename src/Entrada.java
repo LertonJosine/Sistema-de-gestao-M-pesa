@@ -11,8 +11,8 @@ public class Entrada {
 
     public Entrada(float valor, String nota){
 
-        this.nota = nota;
-        this.valor = valor;
+        this.nota = nota = "";
+        this.valor = valor = 0;
     }
 
     // getters

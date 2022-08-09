@@ -10,11 +10,13 @@ public class Dia {
 
     // construtor
 
-    public Dia(float saldo, float valorEspecie, float comissao){
+    public Dia(float saldo, float valorEspecie, float comissao, Vector rt, Vector et){
 
         this.comissao = comissao;
         this.valorEspecie = valorEspecie;
         this.saldo = saldo;
+        this.retiradas = retiradas;
+        this.entradas = entradas;
         
     }
 
