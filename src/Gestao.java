@@ -76,7 +76,7 @@ public class Gestao {
                         comissao += vl.ValidarFloat("Introduza o valor da comissao do " + (c + 1) + "cartão");
                     }
                         valorEspecie = vl.ValidarFloat("Introduza o valor em especie");
-
+                        dia = new Dia(saldo, valorEspecie, comissao);
                         // registro de retiradas
                         do {
                             esc2 = vl.ValidarByte("Houve retiradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
@@ -87,8 +87,7 @@ public class Gestao {
                                 justificativa = vl.ValidarStr("Para que fim foi retirado o valor?");
 
                                 rt = new Retirada(valor, justificativa);
-                                retiradas.addElement(rt);
-                                retiradas.trimToSize();
+                                dia.RegistroRetiradas(rt);
 
                             }
 
@@ -113,7 +112,7 @@ public class Gestao {
                                 float valor = vl.ValidarFloat("Introduza o valor");
                                 String nota = vl.ValidarStr("Introduza uma nota");
                                 et = new Entrada(valor, nota);
-                                entradas.addElement(et); //registro de cada entrada
+                                dia.RegistroEntrada(et); // registrar a entrada 
                             }
                         } while (esc2 != 2);
 
@@ -129,7 +128,6 @@ public class Gestao {
                    
 
                     // instanciar o dia
-                    dia = new Dia(saldo, valorEspecie, comissao, retiradas, entradas);
                     
                     Actualizar("Dias.dat", dia); // actualizacao
 

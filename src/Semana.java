@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Vector;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class Semana implements Serializable{
     
@@ -19,6 +22,16 @@ public class Semana implements Serializable{
     // metodo que calcula o defice
 
     private void CalculoDefice(){
+        // pimeiro vamos abrir o ficheiro dias a fim de colectar todos os dias da semana
+        try{
+            FileInputStream fi = new FileInputStream("Dias.dat")
+            ObjectInputStream obi = new ObjectInputStream(fi);
+
+            
+
+        }catch(FileNotFoundException e){
+            System.out.println("Ficheiro não foi encontrado");
+        }
 
     }
 

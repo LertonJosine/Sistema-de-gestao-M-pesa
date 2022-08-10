@@ -8,7 +8,7 @@ public class Teste {
         Vector vc = new Vector<>();
 
         try{
-            FileInputStream fi = new FileInputStream("Dias.dat");
+            FileInputStream fi = new FileInputStream("Ficheiros/Dias.dat");
             ObjectInputStream obi = new ObjectInputStream(fi);
 
             vc = (Vector) obi.readObject();
