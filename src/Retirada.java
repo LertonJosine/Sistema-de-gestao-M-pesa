@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public class Retirada {
+public class Retirada implements Serializable{
     // atributos
     private float valor;
     private String justificativa;

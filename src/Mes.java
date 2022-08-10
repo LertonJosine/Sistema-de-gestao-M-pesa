@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Mes {
+public class Mes implements Serializable{
     
     // atributos
 

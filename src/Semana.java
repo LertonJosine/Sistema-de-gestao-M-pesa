@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Semana {
+public class Semana implements Serializable{
     
     // atributos
 

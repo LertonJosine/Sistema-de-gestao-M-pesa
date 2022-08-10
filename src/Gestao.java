@@ -15,7 +15,7 @@ public class Gestao {
     public static Vector Abrir(String ficheiro) throws IOException, ClassNotFoundException {
         Vector vc = new Vector<>();
         try {
-            FileInputStream fi = new FileInputStream(ficheiro);
+            FileInputStream fi = new FileInputStream("Ficheiros/"+ficheiro);
             ObjectInputStream obi = new ObjectInputStream(fi);
 
             vc = (Vector) obi.readObject();
@@ -28,9 +28,12 @@ public class Gestao {
         return vc;
     }
 
-    public static void Actualizar(String ficheiro, Vector vc) throws IOException, ClassNotFoundException {
-
-        FileOutputStream fo = new FileOutputStream(ficheiro);
+    public static void Actualizar(String ficheiro, Object obj) throws IOException, ClassNotFoundException {
+        Vector vc = new Vector<>();
+        vc = Abrir(ficheiro);
+        vc.addElement(obj);
+        
+        FileOutputStream fo = new FileOutputStream("Ficheiros/"+ficheiro);
         ObjectOutputStream obo = new ObjectOutputStream(fo);
 
         obo.writeObject(vc);
@@ -40,14 +43,6 @@ public class Gestao {
 
     }
 
-    public static void Gravar(String ficheiro, Vector vc) throws IOException {
-
-        FileOutputStream fo = new FileOutputStream(ficheiro);
-        ObjectOutputStream obo = new ObjectOutputStream(fo);
-
-        obo.writeObject(vc);
-        obo.close();
-    }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
@@ -99,7 +94,7 @@ public class Gestao {
 
                         } while (esc2 != 2);
 
-                        vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
+                         vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
 
                         // adicionar as informacoes recentes
 
@@ -135,10 +130,8 @@ public class Gestao {
 
                     // instanciar o dia
                     dia = new Dia(saldo, valorEspecie, comissao, retiradas, entradas);
-                    vc.clear();
                     
-                    vc = Abrir("Dias.dat"); //abertura do ficheiro
-                    Actualizar("Dias.dat", vc); // actualizacao
+                    Actualizar("Dias.dat", dia); // actualizacao
 
                     System.out.println("Registro concluido");
 

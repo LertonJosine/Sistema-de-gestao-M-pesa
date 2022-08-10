@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Vector;
-public class Dia {
+public class Dia implements Serializable{
     
     // atributos
 

@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public class Entrada {
+public class Entrada implements Serializable{
     
     // atributos
 
