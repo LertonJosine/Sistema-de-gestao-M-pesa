@@ -57,7 +57,7 @@ public class Semana implements Serializable{
 
             if( valorEsperado != ((Dia)dias.elementAt(dias.size()-1)).getTotal()){
                 System.out.println("Existe defice de "+(valorEsperado - ((Dia)dias.elementAt(dias.size()-1)).getTotal()));
-                defice = valorEsperado - ((Dia)dias.elementAt(dias.size())).getTotal();
+                defice = valorEsperado - ((Dia)dias.elementAt(dias.size()-1)).getTotal();
             }else{
                 System.out.println("Não houve defice!");
             }

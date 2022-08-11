@@ -18,8 +18,9 @@ public class Teste {
 
             System.out.println(dias.size());
             Semana sm = new Semana(dias);
-            sm.CalculoDefice();
-            System.out.println(sm.getDefice());
+            // System.out.println(((Dia)dias.elementAt(0)).getRetiradas());
+             sm.CalculoDefice();
+             System.out.println(sm.getDefice());
 
 
         } catch (FileNotFoundException e) {

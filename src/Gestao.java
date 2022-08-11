@@ -77,6 +77,7 @@ public class Gestao {
                     }
                         valorEspecie = vl.ValidarFloat("Introduza o valor em especie");
                         dia = new Dia(saldo, valorEspecie, comissao);
+                        dia.CalculoTotal();
                         // registro de retiradas
                         do {
                             esc2 = vl.ValidarByte("Houve retiradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
@@ -133,7 +134,7 @@ public class Gestao {
 
                     System.out.println("Registro concluido");
 
-
+                    System.out.println("Total do dia: "+dia.getTotal());
                     break;
                 case 2:
                     break;

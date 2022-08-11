@@ -7,7 +7,7 @@ public class Dia implements Serializable{
 
     // private Calendar data;
     private float saldo, valorEspecie, comissao, total;
-    private Vector retiradas, entradas;
+    private Vector retiradas = new Vector<>(), entradas = new Vector<>();
 
     // construtor
 
@@ -21,6 +21,11 @@ public class Dia implements Serializable{
         
     }
 
+    // calculo do total
+
+    public void CalculoTotal(){
+        total = saldo + valorEspecie;
+    }
     // metodo que registra retiradas
 
     public void RegistroRetiradas(Retirada retirada){
