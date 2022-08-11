@@ -96,7 +96,7 @@ public class Gestao {
 
                          vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
 
-                        // adicionar as informacoes recentes
+                        // adicionar as retiradas recentes no ficheiro
 
                         for (int c = 0; c < retiradas.size(); c++) {
                             vc.addElement(retiradas.elementAt(c));
@@ -129,14 +129,17 @@ public class Gestao {
                    
 
                     // instanciar o dia
-                    
+                    vc.clear();
+                    vc = Abrir("Dias.dat");
+                    if(vc.size() == 6)
+                        System.out.println("Não pode adicionar mais dias");
+                    else{                        
                     Actualizar("Dias.dat", dia); // actualizacao
-
-                    System.out.println("Registro concluido");
-
-                    System.out.println("Total do dia: "+dia.getTotal());
+                    System.out.println("Registro concluido"); // reporte de sucesso
+                    }
                     break;
                 case 2:
+                    
                     break;
                 case 3:
                     break;
