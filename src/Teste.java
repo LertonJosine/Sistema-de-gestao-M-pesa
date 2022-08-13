@@ -15,7 +15,7 @@ public class Teste {
             dias = (Vector) obi.readObject();
             dias.trimToSize();
             obi.close();
-            System.out.println(dias.elementAt(0));
+            System.out.println((((Dia)dias.elementAt(0))).getSaldo());
 
             // System.out.println(dias.size());
             // Semana sm = new Semana(dias);

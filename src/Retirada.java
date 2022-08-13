@@ -7,8 +7,8 @@ public class Retirada implements Serializable{
 
     // construtor
     public Retirada(float valor, String justificativa){
-        this.justificativa = justificativa = "Não definida";
-        this.valor = valor = 0;
+        this.justificativa = justificativa;
+        this.valor = valor;
     }
 
     // getters
@@ -20,4 +20,7 @@ public class Retirada implements Serializable{
     public String getJustificativa(){
         return justificativa;
     }
-}   
+    public String toString(){
+        return "Valor: "+valor+"\nJustificacao: "+justificativa;
+    }
+}

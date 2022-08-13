@@ -29,7 +29,6 @@ public class Gestao {
     }
 
     public static void Actualizar(String ficheiro, Vector vc) throws IOException, ClassNotFoundException {
-        
 
         FileOutputStream fo = new FileOutputStream("Ficheiros/" + ficheiro);
         ObjectOutputStream obo = new ObjectOutputStream(fo);
@@ -37,7 +36,7 @@ public class Gestao {
         obo.writeObject(vc);
         obo.close();
 
-        System.out.println("Ficheiro "+ficheiro+ " actualizado");
+        System.out.println("Ficheiro " + ficheiro + " actualizado");
 
     }
 
@@ -73,6 +72,7 @@ public class Gestao {
                         comissao += vl.ValidarFloat("Introduza o valor da comissao do " + (c + 1) + "cartão");
                     }
                     valorEspecie = vl.ValidarFloat("Introduza o valor em especie");
+
                     dia = new Dia(saldo, valorEspecie, comissao);
                     dia.CalculoTotal();
                     // registro de retiradas
@@ -101,8 +101,6 @@ public class Gestao {
                         }
                     } while (esc2 != 2);
 
-                    
-                    vc.clear();
                     vc = Abrir("Dias.dat"); // abertura do ficheiro dias para comparação
 
                     if (vc.size() == 6)
@@ -110,8 +108,9 @@ public class Gestao {
                     else {
 
                         vc.addElement(dia);
+                        System.out.println(vc.elementAt(vc.size() - 1));
                         Actualizar("Dias.dat", vc); // actualizacao
-                        
+
                         vc.clear(); // limpar o vectror para poder receber novas informações
                         vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
                         // adicionar as retiradas recentes no ficheiro
@@ -121,9 +120,8 @@ public class Gestao {
                             vc.trimToSize();
                         }
                         Actualizar("Retiradas.dat", vc); // actualizar o ficheiro de retiradas
-                        vc.clear(); // limpar o vector para receber novas informações
 
-                        
+                        vc.clear(); // limpar o vector para receber novas informações
                         vc = Abrir("Entradas.dat");
 
                         for (int c = 0; c < entradas.size(); c++) {
@@ -140,26 +138,76 @@ public class Gestao {
 
                     // ilusatração do menu de opções
 
-                    esc2 = vl.ValidarByte("\t[1] Visualizar saldo\n\t[2]Visualizar Valor em Especie"
-                    +"\n\t[3] Visualizar comição\n\t[4] Visualizar Total\n\t[5] Visualizar Ultimas Retiradas"
-                    +"\n\t[6] Visualizar Ultimas Entradas\n\t[7] Voltar", (byte)1, (byte)7);
+                    esc2 = vl.ValidarByte("\t[1] Visualizar saldo\n\t[2] Visualizar Valor em Especie"
+                            + "\n\t[3] Visualizar comição\n\t[4] Visualizar Total\n\t[5] Visualizar Ultimas Retiradas"
+                            + "\n\t[6] Visualizar Ultimas Entradas\n\t[7] Voltar", (byte) 1, (byte) 7);
 
-                    	switch(esc2){
-                            case 1:
-                                
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
-                            case 5:
-                                break;
-                            case 6:
-                                break;
-                            case 7: break;
-                        }
+                    switch (esc2) {
+                        case 1: // visualizar o saldo
+                            vc.clear();
+
+                            vc = Abrir("Dias.dat");
+                            float saldoActual;
+                            saldoActual = ((Dia) vc.elementAt(vc.size() - 1)).getSaldo();
+
+                            System.out.println("Saldo actual: " + saldoActual);
+                            break;
+                        case 2: // visualizar o valor em especie
+                            vc.clear();
+
+                            vc = Abrir("Dias.dat");
+                            float valorEspecieActual;
+                            valorEspecieActual = ((Dia) vc.elementAt(vc.size() - 1)).getValorEspecie();
+
+                            System.out.println("Valor em Especie actual: " + valorEspecieActual);
+                            break;
+                        case 3: // visualizar a comição actual
+                            vc.clear();
+
+                            vc = Abrir("Dias.dat");
+                            float comissaoActual;
+                            comissaoActual = ((Dia) vc.elementAt(vc.size() - 1)).getComissao();
+
+                            System.out.println("Comissao actual: " + comissaoActual);
+                            break;
+                        case 4: // visualizar total actual
+                            vc.clear();
+
+                            vc = Abrir("Dias.dat");
+                            float totalActual;
+                            totalActual = ((Dia) vc.elementAt(vc.size() - 1)).getTotal();
+
+                            System.out.println("Total actual: " + totalActual);
+                            break;
+                        case 5: // visualizar
+                            vc.clear();
+
+                            vc = Abrir("Dias.dat");
+                            String ultimaRetirada;
+                            retiradas = (((Dia) vc.elementAt(vc.size() - 1)).getRetiradas());
+                            if (retiradas.size() == 0)
+                                System.out.println("Não houve retiradas");
+                            else {
+                                ultimaRetirada = ((Retirada) retiradas.elementAt(retiradas.size() - 1)).toString();
+
+                                System.out.println("Ultima retirada: " + ultimaRetirada);
+                            }
+                            break;
+                        case 6: // ultima entrada
+                            vc.clear();
+                            vc = Abrir("Dias.dat");
+                            entradas = ((Dia) vc.elementAt(vc.size() - 1)).getEntradas();
+                            if (entradas.size() == 0)
+                                System.out.println("Não houve entrada");
+                            else {
+                                String ultimaEntrada;
+                                ultimaEntrada = ((Entrada) entradas.elementAt(entradas.size() - 1)).toString();
+                                System.out.println("Ultima entrada: " + ultimaEntrada);
+                            }
+                            break;
+                        case 7:
+                            break;
+                    }
                     break;
                 case 3:
                     break;

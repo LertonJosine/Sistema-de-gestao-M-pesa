@@ -11,8 +11,8 @@ public class Entrada implements Serializable{
 
     public Entrada(float valor, String nota){
 
-        this.nota = nota = "";
-        this.valor = valor = 0;
+        this.nota = nota;
+        this.valor = valor;
     }
 
     // getters
@@ -23,5 +23,9 @@ public class Entrada implements Serializable{
 
     public String getNota(){
         return nota;
+    }
+
+    public String toString(){
+        return "Valor: "+valor+"\nJustificacao: "+nota;
     }
 }
