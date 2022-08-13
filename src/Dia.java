@@ -47,5 +47,8 @@ public class Dia implements Serializable{
     public float getTotal(){return total;}
     public float getComissao(){return comissao;}
     // public Calendar getData(){return data;}
+    public String toString(){
+        return "";
+    }
 
 }

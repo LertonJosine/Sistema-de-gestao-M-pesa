@@ -15,34 +15,31 @@ public class Gestao {
     public static Vector Abrir(String ficheiro) throws IOException, ClassNotFoundException {
         Vector vc = new Vector<>();
         try {
-            FileInputStream fi = new FileInputStream("Ficheiros/"+ficheiro);
+            FileInputStream fi = new FileInputStream("Ficheiros/" + ficheiro);
             ObjectInputStream obi = new ObjectInputStream(fi);
 
             vc = (Vector) obi.readObject();
             obi.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("Criando o ficheiro"+ ficheiro);
+            System.out.println("Criando o ficheiro" + ficheiro);
 
         }
         return vc;
     }
 
-    public static void Actualizar(String ficheiro, Object obj) throws IOException, ClassNotFoundException {
-        Vector vc = new Vector<>();
-        vc = Abrir(ficheiro);
-        vc.addElement(obj);
+    public static void Actualizar(String ficheiro, Vector vc) throws IOException, ClassNotFoundException {
         
-        FileOutputStream fo = new FileOutputStream("Ficheiros/"+ficheiro);
+
+        FileOutputStream fo = new FileOutputStream("Ficheiros/" + ficheiro);
         ObjectOutputStream obo = new ObjectOutputStream(fo);
 
         obo.writeObject(vc);
         obo.close();
 
-        System.out.println("Ficheiro actualizado");
+        System.out.println("Ficheiro "+ficheiro+ " actualizado");
 
     }
-
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
@@ -75,71 +72,94 @@ public class Gestao {
                         saldo += vl.ValidarFloat("Introduza o saldo do " + (c + 1) + " cartão");
                         comissao += vl.ValidarFloat("Introduza o valor da comissao do " + (c + 1) + "cartão");
                     }
-                        valorEspecie = vl.ValidarFloat("Introduza o valor em especie");
-                        dia = new Dia(saldo, valorEspecie, comissao);
-                        dia.CalculoTotal();
-                        // registro de retiradas
-                        do {
-                            esc2 = vl.ValidarByte("Houve retiradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
-                            if (esc2 == 1) {
-                                float valor;
+                    valorEspecie = vl.ValidarFloat("Introduza o valor em especie");
+                    dia = new Dia(saldo, valorEspecie, comissao);
+                    dia.CalculoTotal();
+                    // registro de retiradas
+                    do {
+                        esc2 = vl.ValidarByte("Houve retiradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
+                        if (esc2 == 1) {
+                            float valor;
 
-                                valor = vl.ValidarFloat("Introduza o valor");
-                                justificativa = vl.ValidarStr("Para que fim foi retirado o valor?");
+                            valor = vl.ValidarFloat("Introduza o valor");
+                            justificativa = vl.ValidarStr("Para que fim foi retirado o valor?");
 
-                                rt = new Retirada(valor, justificativa);
-                                dia.RegistroRetiradas(rt);
+                            rt = new Retirada(valor, justificativa);
+                            dia.RegistroRetiradas(rt);
+                        }
+                    } while (esc2 != 2);
 
-                            }
+                    // registro de entradas
+                    do {
+                        esc2 = vl.ValidarByte("Houve entradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
 
-                        } while (esc2 != 2);
+                        if (esc2 == 1) {
+                            float valor = vl.ValidarFloat("Introduza o valor");
+                            String nota = vl.ValidarStr("Introduza uma nota");
+                            et = new Entrada(valor, nota);
+                            dia.RegistroEntrada(et); // registrar a entrada
+                        }
+                    } while (esc2 != 2);
 
-                         vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
+                    
+                    vc.clear();
+                    vc = Abrir("Dias.dat"); // abertura do ficheiro dias para comparação
 
+                    if (vc.size() == 6)
+                        System.out.println("Não pode adicionar mais dias");
+                    else {
+
+                        vc.addElement(dia);
+                        Actualizar("Dias.dat", vc); // actualizacao
+                        
+                        vc.clear(); // limpar o vectror para poder receber novas informações
+                        vc = Abrir("Retiradas.dat"); // abrir o ficheiro conservar as informacoes contidas
                         // adicionar as retiradas recentes no ficheiro
 
                         for (int c = 0; c < retiradas.size(); c++) {
                             vc.addElement(retiradas.elementAt(c));
                             vc.trimToSize();
                         }
+                        Actualizar("Retiradas.dat", vc); // actualizar o ficheiro de retiradas
+                        vc.clear(); // limpar o vector para receber novas informações
 
-                        Actualizar("Retiradas.dat", vc); // actualizar o ficheiro
-
-                        // registro de entradas
-                        do {
-                            esc2 = vl.ValidarByte("Houve entradas?\n\t[1] Sim\n\t[2] Não", (byte) 1, (byte) 2);
-
-                            if (esc2 == 1) {
-                                float valor = vl.ValidarFloat("Introduza o valor");
-                                String nota = vl.ValidarStr("Introduza uma nota");
-                                et = new Entrada(valor, nota);
-                                dia.RegistroEntrada(et); // registrar a entrada 
-                            }
-                        } while (esc2 != 2);
-
-                        vc.clear();
+                        
                         vc = Abrir("Entradas.dat");
 
-                        for (int c = 0; c < entradas.size(); c++){
+                        for (int c = 0; c < entradas.size(); c++) {
                             vc.addElement(entradas.elementAt(c));
                             vc.trimToSize();
                         }
 
                         Actualizar("Entradas.dat", vc); // actualizacao do ficheiro de entradas
-                   
 
-                    // instanciar o dia
-                    vc.clear();
-                    vc = Abrir("Dias.dat");
-                    if(vc.size() == 6)
-                        System.out.println("Não pode adicionar mais dias");
-                    else{                        
-                    Actualizar("Dias.dat", dia); // actualizacao
-                    System.out.println("Registro concluido"); // reporte de sucesso
+                        System.out.println("Registro concluido"); // reporte de sucesso
                     }
                     break;
                 case 2:
-                    
+
+                    // ilusatração do menu de opções
+
+                    esc2 = vl.ValidarByte("\t[1] Visualizar saldo\n\t[2]Visualizar Valor em Especie"
+                    +"\n\t[3] Visualizar comição\n\t[4] Visualizar Total\n\t[5] Visualizar Ultimas Retiradas"
+                    +"\n\t[6] Visualizar Ultimas Entradas\n\t[7] Voltar", (byte)1, (byte)7);
+
+                    	switch(esc2){
+                            case 1:
+                                
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                            case 7: break;
+                        }
                     break;
                 case 3:
                     break;
