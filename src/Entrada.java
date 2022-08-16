@@ -13,6 +13,7 @@ public class Entrada implements Serializable{
 
         this.nota = nota;
         this.valor = valor;
+
     }
 
     // getters

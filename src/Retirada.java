@@ -9,6 +9,7 @@ public class Retirada implements Serializable{
     public Retirada(float valor, String justificativa){
         this.justificativa = justificativa;
         this.valor = valor;
+
     }
 
     // getters

@@ -179,36 +179,62 @@ public class Gestao {
 
                             System.out.println("Total actual: " + totalActual);
                             break;
-                        case 5: // visualizar
+                        case 5: // visualizar ultimas retiradas
                             vc.clear();
-
                             vc = Abrir("Dias.dat");
-                            String ultimaRetirada;
-                            retiradas = (((Dia) vc.elementAt(vc.size() - 1)).getRetiradas());
-                            if (retiradas.size() == 0)
-                                System.out.println("Não houve retiradas");
-                            else {
-                                ultimaRetirada = ((Retirada) retiradas.elementAt(retiradas.size() - 1)).toString();
+                            vc.trimToSize();
+                            String ultimaRetirada; // vatriavel que vai receber as informações da ultima retirada
 
-                                System.out.println("Ultima retirada: " + ultimaRetirada);
+                            for (int c = vc.size(); c > 0; c--) {
+                                System.out.println(c);
+                                /*
+                                 * Vai percorrer os dias de trás para frente a fim de
+                                 * achar a ultima retirada
+                                 */
+                                retiradas = (((Dia) vc.elementAt(c - 1)).getRetiradas()); // recebe o vector de
+                                                                                          // retiradas de
+                                                                                          // cada dia
+                                System.out.println(retiradas.size());
+                                if (retiradas.size() != 0) {
+                                    System.out.println("Entrou");
+                                    ultimaRetirada = (((Retirada) retiradas.elementAt(retiradas.size() - 1))
+                                            .toString());
+                                    System.out.println(ultimaRetirada);
+                                    break;
+
+                                }
+                                if (c == 0) {
+                                    System.out.println("Não houve retiradas nesta semana");
+                                    break;
+                                }
                             }
                             break;
                         case 6: // ultima entrada
                             vc.clear();
                             vc = Abrir("Dias.dat");
-                            entradas = ((Dia) vc.elementAt(vc.size() - 1)).getEntradas();
-                            if (entradas.size() == 0)
-                                System.out.println("Não houve entrada");
-                            else {
-                                String ultimaEntrada;
-                                ultimaEntrada = ((Entrada) entradas.elementAt(entradas.size() - 1)).toString();
-                                System.out.println("Ultima entrada: " + ultimaEntrada);
+                            String ultimaEntrada;
+                            System.out.println(vc.size());
+                            for (int c = vc.size(); c > 0; c--) {
+                                System.out.println(c);
+                                entradas = ((Dia) vc.elementAt(c - 1)).getEntradas(); // receber o vector de entradas
+
+                                // percorer o vector de trás para frente afim de achar a ultima entrada
+                                if (entradas.size() != 0) {
+                                    for (int d = entradas.size(); d >= 0; d--) {
+                                        ultimaEntrada = ((Entrada) entradas.elementAt(d - 1)).toString();
+                                        System.out.println(ultimaEntrada);
+                                        break;
+                                    }
+                                    break;
+                                }
+                                if (c == 1)
+                                    System.out.println("Não houve entradas esta semana");
                             }
-                            break;
-                        case 7:
-                            break;
                     }
                     break;
+                case 7:
+                    break;
+
                 case 3:
                     break;
             }
