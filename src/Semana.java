@@ -61,9 +61,6 @@ public class Semana implements Serializable{
             }else{
                 System.out.println("Não houve defice!");
             }
-
-
-
         }catch(FileNotFoundException e){
             System.out.println("Ficheiro não foi encontrado");
         }
@@ -72,13 +69,44 @@ public class Semana implements Serializable{
 
     // metodo que calcula excedente
 
-    private void CalculoExcedente(){
-        
+    public void CalculoExcedente(Vector dias){
+        float totalEntradas = 0,totalRetiradas = 0, totalEsperado, primeiroTotal, totalActual;
+        Vector entradas, retiradas;
+        Retirada retirada; Entrada entrada;
+        // recolher as retiradas de cada dia e estrtair o valor das retiradas e entradas
+        for (int c = 0; c<dias.size(); c++){
+            retiradas = ((Dia)dias.elementAt(c)).getRetiradas(); // recebe o vector retiradas
+            entradas = ((Dia)dias.elementAt(c)).getEntradas(); // recebe o vector entradas
+            // soma de todas as retiradas
+            if(retiradas.size()!= 0 & retiradas != null){
+                for (int d = 0; d<retiradas.size(); d++){
+                    retirada = ((Retirada)retiradas.elementAt(d));
+                    totalRetiradas += retirada.getValor();
+                }
+            }
+
+            // somatorio de totas as entradas
+            if(entradas.size() != 0  & entradas != null){
+                for(int d = 0; d < entradas.size(); d++){
+                    entrada = (Entrada) entradas.elementAt(d);
+                    totalEntradas += entrada.getValor();
+                }
+            }
+        }
+
+        primeiroTotal = ((Dia)dias.elementAt(0)).getSaldo(); // recebe o total do valor no inicio da semana
+        totalEsperado = (primeiroTotal + totalEntradas) - totalRetiradas; // calculo para estipular após as retiradas e entradas quando deveria ficar
+        totalActual = ((Dia)dias.elementAt(dias.size()-1)).getTotal(); // recebe o valor total do ultimo dia de actividade
+
+        // caso o total esperado seja maior em relação ao total efectivo então há dinheiro a mais
+        if(totalEsperado > totalActual){
+            excedente = totalEsperado - totalActual;
+        }
     }
 
     // gerador de relatorio
 
-    private void GerarRelatorio(){
+    public void GerarRelatorio(){
 
     }
 
