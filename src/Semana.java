@@ -23,7 +23,7 @@ public class Semana implements Serializable {
 
     // metodo que calcula o defice
 
-    public void CalculoDefice(Vector dias) throws IOException, ClassNotFoundException {
+    public void CalculoDefice() throws IOException, ClassNotFoundException {
         Vector dividas = new Vector<>(), entradas = new Vector<>();
 
         // pimeiro vamos abrir o ficheiro dias a fim de colectar todos os dias da semana
@@ -62,7 +62,7 @@ public class Semana implements Serializable {
 
     // metodo que calcula excedente
 
-    public void CalculoExcedente(Vector dias) {
+    public void CalculoExcedente() {
         float totalEntradas = 0, totalRetiradas = 0, totalEsperado, primeiroTotal, totalActual;
         Vector entradas, retiradas;
         Retirada retirada;

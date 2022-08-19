@@ -236,6 +236,21 @@ public class Gestao {
                     break;
 
                 case 3:
+                    esc2 = vl.ValidarByte("\t[1] Relatorio Semanal\n\t[2] Relatorio Mensal\n\t[3]Sair", (byte) 1,
+                            (byte) 3);
+                    switch (esc2) {
+                        case 1:
+                            vc.clear();
+                            vc = Abrir("Dias.dat");
+                            sm = new Semana(vc);
+                            sm.CalculoDefice();
+                            sm.CalculoExcedente();
+                            sm.GerarRelatorio();
+
+                            break;
+                        case 2:
+                            break;
+                    }
                     break;
             }
         } while (esc != 4);
