@@ -50,6 +50,8 @@ public class Gestao {
         Dia dia;
         Semana sm;
         Mes mes;
+
+
         // declacao de variaveis
 
         byte esc, esc2 = 0; // variaveis de escolha de opcoes em menus e submenus
@@ -66,7 +68,6 @@ public class Gestao {
                     String justificativa = "";
 
                     for (int c = 0; c < 2; c++) {
-
                         // colecta de dados de saldo comissao
                         saldo += vl.ValidarFloat("Introduza o saldo do " + (c + 1) + " cartão");
                         comissao += vl.ValidarFloat("Introduza o valor da comissao do " + (c + 1) + "cartão");
@@ -230,25 +231,51 @@ public class Gestao {
                                 if (c == 1)
                                     System.out.println("Não houve entradas esta semana");
                             }
+                        case 7: // sair
+                            break;
                     }
-                    break;
-                case 7:
+
                     break;
 
-                case 3:
+                case 3: // Relatorios
+
+                    // ilustra o submenu
                     esc2 = vl.ValidarByte("\t[1] Relatorio Semanal\n\t[2] Relatorio Mensal\n\t[3]Sair", (byte) 1,
                             (byte) 3);
                     switch (esc2) {
-                        case 1:
-                            vc.clear();
-                            vc = Abrir("Dias.dat");
-                            sm = new Semana(vc);
-                            sm.CalculoDefice();
-                            sm.CalculoExcedente();
-                            sm.GerarRelatorio();
+                        case 1: // relatorio da semana
 
+                            vc.clear(); // limpar o vector para receber novos dados
+
+                            vc = Abrir("Dias.dat"); // abrir o ficheiro dias
+                            if (vc.size() < 6)
+                                System.out.println("Não tem dias suficientes para gerar um relatorio semanal.");
+                            else {
+                                sm = new Semana(vc); // instanciamos a semana com o parametro dias
+
+                                sm.CalculoDefice(); // procurar defices que possas ter ocorido na semana
+                                sm.CalculoExcedente(); // procurar excedentes que possam ter ocorrido durante a semana
+                                sm.GerarRelatorio(); // gerar relatorio
+
+                                /*
+                                 * Actualiza o ficheiro semanas
+                                 * caso nao tenha um ficheiro semana o ficheiro sera criado e a semana sera
+                                 * gravada
+                                 */
+                                vc.clear();
+                                vc = Abrir("Semanas.dat");
+                                vc.addElement(sm);
+                                Actualizar("Semanas.dat", vc);
+
+                                // esperimental
+                                // apos a criacao do relatorio vamos limpar os dias no ficheiro dias para então
+                                // gravar novos dias para a =-0
+                                vc.clear();
+                                Actualizar("Dias.dat", vc);
+                            }
                             break;
-                        case 2:
+                        case 2: // relatorio mensal
+                            System.out.println("Em sesenvolvimento");
                             break;
                     }
                     break;
